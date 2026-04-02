@@ -173,6 +173,7 @@ const CURRENT_BACKEND = CurrentBackend(:none)
 include("output.jl")
 include("shorthands.jl")
 include("backends/web.jl")
+include("backends/plotly.jl")
 include("init.jl")
 
 end

@@ -91,7 +91,7 @@ end
 
 ##################################################################
 backend()
-include(_path(backend_name()))
+backend_name() === :plotly || include(_path(backend_name()))
 
 # COV_EXCL_START
 @setup_workload begin

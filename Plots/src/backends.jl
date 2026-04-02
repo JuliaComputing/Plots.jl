@@ -566,6 +566,9 @@ is_marker_supported(::GRBackend, shape::Shape) = true
 # ------------------------------------------------------------------------------
 # plotly
 _pre_imports(::PlotlyBackend) = nothing
+_post_imports(::PlotlyBackend) = nothing
+_initialize_backend(::PlotlyBackend) = nothing
+#=
 _post_imports(::PlotlyBackend) = @eval begin
     const PlotlyBase = Main.PlotlyBase
     const PlotlyKaleido = Main.PlotlyKaleido
@@ -611,6 +614,7 @@ function _initialize_backend(pkg::PlotlyBackend)
         end
     end
 end
+=#
 
 const _plotly_attr = merge_with_base_supported(
     [
