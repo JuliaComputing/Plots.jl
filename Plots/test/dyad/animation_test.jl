@@ -1,6 +1,6 @@
 module AnimationTest
 
-using Plots: Plots, Animation, gif
+using Plots: Animation, gif
 using Test: @test, @testset
 
 function test_does_not_load_ffmpeg()
