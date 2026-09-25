@@ -1,10 +1,10 @@
 module GRTest
 
 using Plots: Plots, gr, plotly
-using Test: @test, @test_throws, @testset
+using Test: @test, @testset
 
-function test_does_not_load_gr()
-    @test !any(package -> package.name == "GR", keys(Base.loaded_modules))
+function test_is_not_a_dependency()
+    @test Base.identify_package(Plots, "GR") === nothing
     return nothing
 end
 
@@ -23,7 +23,7 @@ function test_points_to_installing_gr()
 end
 
 @testset "`GR` backend" begin
-    @testset "is not loaded with `Plots`" test_does_not_load_gr()
+    @testset "is not a dependency of `Plots`" test_is_not_a_dependency()
     @testset "points to installing `GR` when selected without it" test_points_to_installing_gr()
 end
 
