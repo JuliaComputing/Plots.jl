@@ -7,7 +7,9 @@ import Plots: Plots, @ext_imp_use, @recipe, PlotText, Subplot, AVec, AMat, Axis
 import RecipesBase
 @ext_imp_use :import Unitful Quantity unit ustrip Unitful dimension Units NoUnits LogScaled logunit MixedUnits Level Gain uconvert
 import LaTeXStrings: LaTeXString
-import Latexify: latexify
+
+# Only reached under `pgfplotsx`, whose initialization binds `Plots.Latexify`.
+latexify(unit) = Plots.Latexify.latexify(unit)
 
 const MissingOrQuantity = Union{Missing, <:Quantity, <:LogScaled}
 
