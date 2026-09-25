@@ -204,10 +204,10 @@ end
 CurrentBackend(sym::Symbol) = CurrentBackend(sym, _backend_instance(sym))
 
 # ---------------------------------------------------------
-const PLOTS_DEFAULT_BACKEND = "gr"
+const PLOTS_DEFAULT_BACKEND = "plotly"
 
 function load_default_backend()
-    CURRENT_BACKEND.sym = :gr
+    CURRENT_BACKEND.sym = :plotly
     return backend(CURRENT_BACKEND.sym)
 end
 
