@@ -30,12 +30,7 @@ function _check_installed(backend::Union{Module, AbstractString, Symbol}; warn =
         return
     end
     # check installed
-    pkg_id = if str == "GR"
-        # FIXME: remove in `Plots2.0` (`GR` won't be a hard Plots dependency anymore).
-        Base.identify_package(Plots, str)  # GR can be in the Manifest or in the Project
-    else
-        Base.identify_package(str)  # a Project dependency
-    end
+    pkg_id = Base.identify_package(str)  # a Project dependency
     version = if pkg_id === nothing
         nothing
     else
@@ -387,13 +382,10 @@ function _initialize_backend(pkg::AbstractBackend)
     _pre_imports(pkg)
     name = backend_package_name(pkg)
     # NOTE: this is a hack importing in `Main` (expecting the package to be in `Project.toml`, remove in `Plots@2.0`)
-    # FIXME: remove hard `GR` dependency in `Plots@2.0`
-    @eval name === :GR ? Plots : Main begin
+    @eval Main begin
         import $name
         export $name
-        if $(QuoteNode(name)) !== :GR
-            $(_check_compat)($name)
-        end
+        $(_check_compat)($name)
     end
     _post_imports(pkg)
     _runtime_init(pkg)
@@ -402,7 +394,6 @@ end
 
 # ------------------------------------------------------------------------------
 # gr
-_post_imports(::GRBackend) = nothing
 
 const _gr_attr = merge_with_base_supported(
     [
