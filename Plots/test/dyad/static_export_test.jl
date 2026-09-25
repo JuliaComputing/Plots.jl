@@ -1,6 +1,6 @@
 module StaticExportTest
 
-using Plots: Plots, plot, savefig
+using Plots: plot, savefig
 using Test: @test, @testset
 
 function saved_bytes(extension)
