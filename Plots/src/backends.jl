@@ -1571,7 +1571,7 @@ const _inspectdr_scale = [:identity, :ln, :log2, :log10]
 _pre_imports(::PGFPlotsXBackend) = @eval Plots begin
     import LaTeXStrings: LaTeXString
     import UUIDs: uuid4
-    import Latexify
+    const Latexify = Base.require(Main, :Latexify)
     import Contour
     @require_backend PGFPlotsX
 end
