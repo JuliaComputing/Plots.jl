@@ -568,53 +568,6 @@ is_marker_supported(::GRBackend, shape::Shape) = true
 _pre_imports(::PlotlyBackend) = nothing
 _post_imports(::PlotlyBackend) = nothing
 _initialize_backend(::PlotlyBackend) = nothing
-#=
-_post_imports(::PlotlyBackend) = @eval begin
-    const PlotlyBase = Main.PlotlyBase
-    const PlotlyKaleido = Main.PlotlyKaleido
-    # FIXME: in Plots `2.0`, `plotly` backend should be re-named to `plotlybase`
-    # so that we can trigger include on `@require` instead of this
-    PLOTS_DEFAULT_BACKEND == "plotly" || include(_path(:plotly))
-    include(_path(:plotlybase))
-end
-function _initialize_backend(pkg::PlotlyBackend)
-    try
-        _pre_imports(pkg)
-        @eval Main begin
-            import PlotlyBase
-            import PlotlyKaleido
-            $(_check_compat)(PlotlyBase; warn = false)  # NOTE: don't warn, since those are not backends, but deps
-            $(_check_compat)(PlotlyKaleido, warn = false)
-        end
-        _post_imports(pkg)
-        _runtime_init(pkg)
-    catch err
-        if err isa ArgumentError
-            @warn "Failed to load integration with PlotlyBase & PlotlyKaleido." exception =
-                (err, catch_backtrace())
-        else
-            rethrow(err)
-        end
-        # NOTE: `plotly` is special in the way that it does not require dependencies for displaying a plot
-        # as a result, we cannot rely on the `@require` mechanism for loading glue code
-        # this is why it must be done here.
-        PLOTS_DEFAULT_BACKEND == "plotly" || @eval include(_path(:plotly))
-    end
-    return @static if isdefined(Base.Experimental, :register_error_hint)
-        Base.Experimental.register_error_hint(MethodError) do io, exc, argtypes, kwargs
-            if exc.f === _show &&
-                    length(argtypes) == 3 &&
-                    argtypes[2] <: MIME"image/png" &&
-                    argtypes[3] <: Plot{PlotlyBackend}
-                println(
-                    io,
-                    "\n\nTip: For saving/rendering as png with the `Plotly` backend `PlotlyBase` and `PlotlyKaleido` need to be installed.",
-                )
-            end
-        end
-    end
-end
-=#
 
 const _plotly_attr = merge_with_base_supported(
     [

@@ -175,5 +175,10 @@ include("shorthands.jl")
 include("backends/web.jl")
 include("backends/plotly.jl")
 include("init.jl")
+# After `init.jl`, so the precompile workload never starts Kaleido: without these
+# methods PNG, PDF and SVG are not `showable` while it runs.
+import PlotlyBase
+import PlotlyKaleido
+include("backends/plotlybase.jl")
 
 end
