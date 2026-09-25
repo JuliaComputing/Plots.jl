@@ -8,7 +8,6 @@ Base64 = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
 Contour = "d38c429a-6771-53c6-b99e-75d170b6e991"
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
 Downloads = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
-FFMPEG = "c87230d0-a227-11e9-1b43-d7ebe4e7570a"
 JLFzf = "1019f520-868f-41f5-a6de-eb00f4b6a39c"
 JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
 LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
@@ -41,6 +40,7 @@ UnicodeFun = "1cfade01-22cf-5700-b092-accc4b62d6e1"
 Unzip = "41fe7b60-77ed-43a1-b4f0-825fd5a5650d"
 
 [weakdeps]
+FFMPEG = "c87230d0-a227-11e9-1b43-d7ebe4e7570a"
 FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
 GeometryBasics = "5c1252a2-5f33-56bf-86c9-59e7332b4326"
 IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
@@ -53,6 +53,7 @@ RecipesBase = {path = "../RecipesBase"}
 RecipesPipeline = {path = "../RecipesPipeline"}
 
 [extensions]
+FFMPEGExt = "FFMPEG"
 FileIOExt = "FileIO"
 GeometryBasicsExt = "GeometryBasics"
 IJuliaExt = "IJulia"
