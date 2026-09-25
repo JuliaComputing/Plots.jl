@@ -3,6 +3,7 @@ import Plots: PLOTS_SEED, Plot, with
 import SentinelArrays: ChainedVector
 import GeometryBasics
 import OffsetArrays
+import FFMPEG  # enables `FFMPEGExt`, which encodes animations
 import ImageMagick
 import FreeType  # for `unicodeplots`
 import LibGit2

@@ -1,4 +1,13 @@
-using FFMPEG
+"""
+    ffmpeg_exe(command)
+
+Run `ffmpeg` with the arguments in `command`. The `FFMPEG` package extension
+adds the method that does this; without `FFMPEG` loaded, this fallback explains
+how to enable encoding animations.
+"""
+ffmpeg_exe(_...) = error(
+    "Encoding animations requires `FFMPEG`: run `import Pkg; Pkg.add(\"FFMPEG\")`, then `using FFMPEG`.",
+)
 
 """
     Animation(dir = mktempdir()))

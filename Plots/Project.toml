@@ -8,7 +8,6 @@ Base64 = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
 Contour = "d38c429a-6771-53c6-b99e-75d170b6e991"
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
 Downloads = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
-FFMPEG = "c87230d0-a227-11e9-1b43-d7ebe4e7570a"
 FixedPointNumbers = "53c48c17-4a7d-5ca2-90c5-79b7896eea93"
 JLFzf = "1019f520-868f-41f5-a6de-eb00f4b6a39c"
 JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
@@ -47,6 +46,7 @@ RecipesBase = {path = "../RecipesBase"}
 RecipesPipeline = {path = "../RecipesPipeline"}
 
 [weakdeps]
+FFMPEG = "c87230d0-a227-11e9-1b43-d7ebe4e7570a"
 FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
 GeometryBasics = "5c1252a2-5f33-56bf-86c9-59e7332b4326"
 IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
@@ -54,6 +54,7 @@ ImageInTerminal = "d8c32880-2388-543b-8c61-d9f865259254"
 Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 
 [extensions]
+FFMPEGExt = "FFMPEG"
 FileIOExt = "FileIO"
 GeometryBasicsExt = "GeometryBasics"
 IJuliaExt = "IJulia"
