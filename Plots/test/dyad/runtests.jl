@@ -7,6 +7,7 @@ using Test: @testset
     include("./default_backend_test.jl")
     include("./gr_test.jl")
     include("./latexify_test.jl")
+    include("./nonfinite_test.jl")
     include("./static_export_test.jl")
 end
 

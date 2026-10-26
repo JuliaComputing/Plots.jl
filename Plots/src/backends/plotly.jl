@@ -476,7 +476,18 @@ function plotly_legend_pos(v::Tuple{S, Symbol}) where {S <: Real}
     )
 end
 
-plotly_layout_json(plt::Plot) = JSON.json(plotly_layout(plt), 4)
+# JSON 0.21 wrote non-finite floats as `null`, which plotly draws as a gap;
+# JSON 1.x throws on them unless told what to write instead.
+@static if pkgversion(JSON) >= v"1"
+    const PLOTLY_JSON_KW = (allownan = true, nan = "null", inf = "null", ninf = "null")
+    plotly_json(x, indent) = JSON.json(x; pretty = indent, PLOTLY_JSON_KW...)
+    plotly_json(io::IO, x) = JSON.json(io, x; PLOTLY_JSON_KW...)
+else
+    plotly_json(x, indent) = JSON.json(x, indent)
+    plotly_json(io::IO, x) = JSON.print(io, x)
+end
+
+plotly_layout_json(plt::Plot) = plotly_json(plotly_layout(plt), 4)
 
 plotly_colorscale(cg::ColorGradient, α = nothing) =
     map(v -> [v, rgba_string(plot_color(cg.colors[v], α))], cg.values)
@@ -1084,7 +1095,7 @@ function plotly_series(plt::Plot)
 end
 
 # get json string for a list of dictionaries, each representing the series params
-plotly_series_json(plt::Plot) = JSON.json(plotly_series(plt), 4)
+plotly_series_json(plt::Plot) = plotly_json(plotly_series(plt), 4)
 
 # ----------------------------------------------------------------
 
@@ -1170,7 +1181,7 @@ js_body(plt::Plot, unique_tag) =
     "Plotly.newPlot('$unique_tag', $(plotly_series_json(plt)), $(plotly_layout_json(plt)));"
 
 plotly_show_js(io::IO, plot::Plot) =
-    JSON.print(io, Dict(:data => plotly_series(plot), :layout => plotly_layout(plot)))
+    plotly_json(io, Dict(:data => plotly_series(plot), :layout => plotly_layout(plot)))
 
 # ----------------------------------------------------------------
 
