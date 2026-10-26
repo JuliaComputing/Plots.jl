@@ -1,12 +1,14 @@
 # Plots for the Dyad distribution
 
 This branch is `Plots` v1 as the Dyad distribution ships it. It differs
-from the upstream release it is based on in two ways:
+from the upstream release it is based on in three ways:
 
 - `plotly` is the only backend loaded by default, and it can export
   static images.
 - The dependencies that bring restrictively licensed binaries into the
   distribution are optional, not required.
+- The `plotly` backend writes `Inf` and `NaN` as `null` under JSON 1.x,
+  as it did under JSON 0.21, instead of throwing.
 
 Each difference is its own commit. The commit message says what it
 changes, why, how a user gets the feature back, and how to redo the
@@ -21,6 +23,7 @@ change on a newer upstream release.
 | make GR an optional backend | `gr()` needs `Pkg.add("GR")` | removes `GR`, `GR_jll`, Qt6, the X11 and input stack, GLFW, Cairo |
 | make FFMPEG a weak dependency | encoding animations needs `Pkg.add("FFMPEG")` and `using FFMPEG` | removes `FFMPEG`, `FFMPEG_jll`, x264, x265, libfdk-aac |
 | make Latexify an optional dependency | `pgfplotsx()` needs `Pkg.add("Latexify")` | removes `Latexify`, `Ghostscript_jll` |
+| write non-finite numbers as `null` in plotly JSON | plots with `Inf` or `NaN` in their data, such as `hline!` on a log axis, display instead of throwing | — |
 
 Removing GR and FFMPEG only helps together: `GR_jll` itself depends on
 `FFMPEG_jll`.
